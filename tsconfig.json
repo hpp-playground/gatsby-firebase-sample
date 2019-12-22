@@ -1,26 +1,27 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    //jsx: if you do something after transcompiling (Babel etc.), you should set "preserve"
+    "baseUrl": ".",
     "jsx": "preserve",
-    "lib": ["dom", "es2015", "es2017"],
+    "module": "commonjs",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "noEmit": true,
+    "target": "esnext",
+    "lib": ["dom", "es2015", "es2017"],
+    "paths": {
+      "*": ["types/*"]
+    },
+    "typeRoots": ["types", "node_modules/@types"],
     "allowJs": true,
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "strictNullChecks": true,
+    "noEmit": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
-    "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
-    "typeRoots": ["types", "node_modules/@types"]
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true
   },
   "exclude": ["node_modules", "public", ".cache"]
 }
