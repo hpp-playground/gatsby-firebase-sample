@@ -1,6 +1,9 @@
+https://gist.github.com/Sidebook/f8daf86994dcfa6055b7dc46e31fb7cc
+http://developers.u-aizu.ac.jp/index
+
+
 POST https://judgeapi.u-aizu.ac.jp/session
 Content-Type: application/json
-
 
 {
   "id": "hppRC",
@@ -8,18 +11,17 @@ Content-Type: application/json
 }
 
 ###
-
 GET https://judgeapi.u-aizu.ac.jp/self
 
 
 ###
-
 DELETE https://judgeapi.u-aizu.ac.jp/session
 
 ###
-
 GET https://judgeapi.u-aizu.ac.jp/users?page=2&size=2
 
 ###
-
 GET https://judgeapi.u-aizu.ac.jp/users/dn6049949
+
+###
+GET https://judgeapi.u-aizu.ac.jp/arenas
