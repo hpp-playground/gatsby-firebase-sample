@@ -11,6 +11,13 @@ export interface Todo {
   readonly updatedAt?: number;
 }
 
+export const todosCollection = (uid: string) =>
+  firebase
+    .firestore()
+    .collection(`users`)
+    .doc(uid)
+    .collection(`todos`);
+
 const toModel = (id: string, data: firebase.firestore.DocumentData) => {
   const { text, completed } = data;
   const createdAt = data.createdAt
@@ -32,11 +39,7 @@ export const useFirestoreTodos = (uid: string) => {
   const [todos, setTodos] = useState<Todo[]>();
 
   useEffect(() => {
-    const collection = firebase
-      .firestore()
-      .collection(`users`)
-      .doc(uid)
-      .collection(`todos`);
+    const collection = todosCollection(uid);
 
     let query: firebase.firestore.Query = collection.orderBy(
       `createdAt`,
@@ -56,7 +59,52 @@ export const useFirestoreTodos = (uid: string) => {
     };
   }, []);
 
-  return todos;
+  const addTodo = async (uid: string, todoName: string) => {
+    const checkedName = todoName.trim();
+    if (!checkedName) {
+      return;
+    }
+    await todosCollection(uid)
+      .add({
+        text: todoName,
+        completed: false,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .catch(error => {
+        console.error('Error add todo to Firebase Database', error);
+      });
+    return;
+  };
+
+  const updateTodo = async (
+    uid: string,
+    todoId: string,
+    completed: boolean
+  ) => {
+    await todosCollection(uid)
+      .doc(todoId)
+      .update({
+        completed,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .catch(error => {
+        console.error('Error update todo to Firebase Database', error);
+      });
+    return;
+  };
+
+  const deleteTodo = async (uid: string, todoId: string) => {
+    await todosCollection(uid)
+      .doc(todoId)
+      .delete()
+      .catch(error => {
+        console.error('Error delete todo to Firebase Database', error);
+      });
+    return;
+  };
+
+  return { todos, addTodo, updateTodo, deleteTodo };
 };
 
 export default useFirestoreTodos;

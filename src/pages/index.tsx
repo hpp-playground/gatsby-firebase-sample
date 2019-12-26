@@ -2,19 +2,37 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { SEO } from '../components';
+import { GoogleAuthButton, SEO, TodoContents } from '../components';
+import { FirebaseAuthContainer } from '../store';
 import baseStyle from '../styles/base-style';
 
 const Index: React.FCX = ({ className }) => {
+  const { user } = FirebaseAuthContainer.useContainer();
   return (
     <main className={className}>
-      <h1>this is index page!</h1>
+      {user ? (
+        <>
+          <TodoContents user={user} />
+          {/*
+          <div>
+            <SignOutButton />
+          </div>*/}
+        </>
+      ) : user === null ? (
+        <>
+          <section>test</section>
+          <GoogleAuthButton />
+        </>
+      ) : (
+        <div>not logged in</div>
+      )}
     </main>
   );
 };
 
 const StyledIndex = styled(Index)`
   ${baseStyle};
+  padding-top: 20rem;
 `;
 
 export default () => (
