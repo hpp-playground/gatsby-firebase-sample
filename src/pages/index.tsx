@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { GoogleAuthButton, SEO, TodoContents } from '../components';
+import { GoogleAuthButton, SEO, SignOutButton, TodoContents } from '../components';
 import { FirebaseAuthContainer } from '../store';
 import baseStyle from '../styles/base-style';
 
@@ -13,10 +13,10 @@ const Index: React.FCX = ({ className }) => {
       {user ? (
         <>
           <TodoContents user={user} />
-          {/*
+
           <div>
             <SignOutButton />
-          </div>*/}
+          </div>
         </>
       ) : user === null ? (
         <>

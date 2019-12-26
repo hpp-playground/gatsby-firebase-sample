@@ -19,6 +19,7 @@ const config = {
   appId: '1:670176804221:web:58f9fcd81e0c74607b2014',
   measurementId: 'G-E49FPRK8PD'
 };
+
 firebase.initializeApp(config);
 
 const useFirebaseAuthContainer = () => {
